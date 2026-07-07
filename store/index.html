@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>חזי לונדון — HEZI LONDON</title>
+<meta name="description" content="חזי לונדון — אופנה בסטנדרט לונדוני, שירות בגובה העיניים. הקולקציה החדשה SS26.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=Archivo:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#FFFFFF;
+  --off:#F7F7F7;
+  --grey-1:#EDEDED;
+  --grey-2:#D8D8D8;
+  --grey-3:#9A9A9A;
+  --grey-4:#5C5C5C;
+  --black:#0E0E0E;
+  --accent:#B3261E;
+  --body:'Heebo',system-ui,sans-serif;
+  --latin:'Archivo',sans-serif;
+  --pad:clamp(18px,4vw,56px);
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);background:var(--white);color:var(--black);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer}
+::selection{background:var(--black);color:var(--white)}
+:focus-visible{outline:2px solid var(--black);outline-offset:3px}
+
+/* ============ grain overlay ============ */
+.grain{
+  position:fixed;inset:0;z-index:100;pointer-events:none;
+  opacity:.035;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ============ announcement ============ */
+.announce{
+  background:var(--black);color:var(--white);
+  font-size:12.5px;font-weight:500;letter-spacing:.06em;
+  text-align:center;padding:9px 16px;
+  overflow:hidden;white-space:nowrap;
+}
+.announce span{display:inline-block;padding:0 28px}
+.announce b{color:#fff;font-weight:700}
+
+/* ============ header ============ */
+header{
+  position:sticky;top:0;z-index:40;
+  background:rgba(255,255,255,.82);
+  backdrop-filter:saturate(180%) blur(14px);
+  -webkit-backdrop-filter:saturate(180%) blur(14px);
+  border-bottom:1px solid var(--grey-1);
+  transition:box-shadow .3s ease;
+}
+header.scrolled{box-shadow:0 6px 26px -18px rgba(0,0,0,.4)}
+.hrow{
+  display:grid;grid-template-columns:1fr auto 1fr;align-items:center;
+  padding:0 var(--pad);height:64px;
+}
+.hicons{display:flex;gap:18px;align-items:center;justify-content:flex-end}
+.hicons button,.hicons a{background:none;border:none;display:grid;place-items:center;position:relative;transition:transform .18s var(--ease)}
+.hicons button:hover,.hicons a:hover{transform:translateY(-2px)}
+.hicons svg{width:21px;height:21px;stroke:var(--black);stroke-width:1.6;fill:none}
+.cart-count{
+  position:absolute;top:-6px;left:-8px;
+  background:var(--accent);color:var(--white);
+  font-size:10px;font-weight:700;
+  width:16px;height:16px;border-radius:50%;
+  display:grid;place-items:center;
+  transform:scale(0);transition:transform .25s var(--ease);
+}
+.cart-count.show{transform:scale(1)}
+.logo{
+  font-family:var(--latin);font-weight:900;font-size:21px;letter-spacing:.34em;
+  text-align:center;user-select:none;padding-right:.34em;
+}
+.logo small{display:block;font-family:var(--body);font-weight:400;font-size:10px;letter-spacing:.5em;color:var(--grey-3);margin-top:1px;padding-right:.16em}
+.hnav{display:flex;gap:26px;font-size:14px;font-weight:500}
+.hnav a{position:relative;padding:22px 0}
+.hnav a::after{content:"";position:absolute;bottom:16px;right:0;width:0;height:1.5px;background:var(--black);transition:width .22s var(--ease)}
+.hnav a:hover::after{width:100%}
+.hnav .sale{color:var(--accent);font-weight:700}
+.hnav .sale::after{background:var(--accent)}
+.burger{display:none;background:none;border:none}
+.burger svg{width:24px;height:24px;stroke:var(--black);stroke-width:1.8;fill:none}
+
+/* ============ hero ============ */
+.hero{
+  position:relative;height:min(80vh,700px);min-height:460px;
+  background:
+    radial-gradient(120% 120% at 85% 15%, rgba(255,255,255,.10), transparent 55%),
+    radial-gradient(90% 90% at 10% 90%, rgba(0,0,0,.55), transparent 60%),
+    linear-gradient(115deg, #101010 0%, #2B2B2B 46%, #3D3D3D 74%, #141414 100%);
+  color:var(--white);
+  display:flex;align-items:flex-end;
+  overflow:hidden;
+}
+.hero::before{
+  content:"HEZI LONDON";
+  position:absolute;inset:auto -2% -6% auto;
+  font-family:var(--latin);font-weight:900;
+  font-size:clamp(90px,17vw,240px);
+  letter-spacing:.02em;line-height:.8;
+  user-select:none;pointer-events:none;white-space:nowrap;
+  color:transparent;
+  background:linear-gradient(100deg,rgba(255,255,255,.03) 20%,rgba(255,255,255,.14) 50%,rgba(255,255,255,.03) 80%);
+  background-size:250% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  animation:shimmer 7s linear infinite;
+}
+@keyframes shimmer{to{background-position:-250% 0}}
+.hero::after{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(130% 90% at 80% 10%, transparent 40%, rgba(0,0,0,.35));
+}
+.hero-in{position:relative;z-index:2;padding:0 var(--pad) clamp(40px,7vh,76px);max-width:640px}
+.hero .eyebrow{
+  font-size:12px;font-weight:700;letter-spacing:.3em;color:var(--grey-2);
+  margin-bottom:16px;display:flex;align-items:center;gap:12px;
+}
+.hero .eyebrow::before{content:"";width:34px;height:1px;background:var(--grey-3);transform-origin:right;animation:lineIn .8s .1s var(--ease) both}
+@keyframes lineIn{from{transform:scaleX(0)}}
+.hero h1{
+  font-weight:800;font-size:clamp(34px,6vw,62px);line-height:1.08;letter-spacing:-.01em;
+  margin-bottom:14px;
+}
+.hero p{font-weight:300;font-size:clamp(15px,2vw,18px);color:var(--grey-2);margin-bottom:28px;max-width:44ch}
+/* staggered entrance */
+.hero .eyebrow,.hero h1,.hero p,.hero .btn{opacity:0;transform:translateY(26px);animation:heroUp .8s var(--ease) forwards}
+.hero .eyebrow{animation-delay:.05s}
+.hero h1{animation-delay:.18s}
+.hero p{animation-delay:.32s}
+.hero .btn{animation-delay:.46s}
+@keyframes heroUp{to{opacity:1;transform:none}}
+
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:14.5px;font-weight:600;letter-spacing:.04em;
+  padding:15px 34px;border:1.5px solid var(--white);
+  background:var(--white);color:var(--black);
+  transition:background .2s var(--ease),color .2s var(--ease),transform .12s var(--ease),box-shadow .2s var(--ease);
+}
+.btn svg{width:15px;height:15px;stroke:currentColor;stroke-width:2;fill:none;transition:transform .2s var(--ease)}
+.btn:hover{background:transparent;color:var(--white);box-shadow:0 12px 30px -14px rgba(0,0,0,.6)}
+.btn:hover svg{transform:translateX(-5px)}
+.btn:active{transform:translateY(1px)}
+.btn.dark{background:var(--black);border-color:var(--black);color:var(--white)}
+.btn.dark:hover{background:transparent;color:var(--black)}
+.btn.ghost{background:transparent;color:var(--black);border-color:var(--black)}
+.btn.ghost:hover{background:var(--black);color:var(--white)}
+
+/* ============ section head ============ */
+.sec{padding:clamp(46px,8vw,84px) var(--pad)}
+.sec-head{display:flex;align-items:baseline;justify-content:space-between;gap:20px;margin-bottom:clamp(24px,4vw,40px)}
+.sec-title{font-weight:800;font-size:clamp(22px,3.4vw,32px);letter-spacing:-.01em;display:flex;align-items:baseline;gap:14px}
+.sec-title .en{font-family:var(--latin);font-weight:600;font-size:.5em;letter-spacing:.28em;color:var(--grey-3)}
+.sec-link{font-size:13.5px;font-weight:600;border-bottom:1.5px solid var(--black);padding-bottom:2px;white-space:nowrap;transition:gap .2s,opacity .2s}
+.sec-link:hover{opacity:.6}
+
+/* ============ product grid ============ */
+.pgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 16px}
+.pcard{position:relative}
+.pimg{
+  position:relative;aspect-ratio:3/4;overflow:hidden;background:var(--off);
+  display:grid;place-items:center;
+}
+.ph{
+  width:100%;height:100%;position:relative;
+  display:grid;place-items:center;
+  transition:transform .6s var(--ease);
+}
+.ph::before{
+  content:attr(data-mono);
+  font-family:var(--latin);font-weight:900;font-size:clamp(40px,7vw,66px);
+  letter-spacing:.04em;color:rgba(14,14,14,.07);
+}
+.ph::after{
+  content:"HEZI LONDON";
+  position:absolute;bottom:14px;right:0;left:0;
+  font-family:var(--latin);font-weight:700;font-size:10px;letter-spacing:.28em;
+  text-align:center;color:var(--grey-3);
+}
+.pcard:hover .ph{transform:scale(1.05)}
+.ph-1{background:linear-gradient(160deg,#EDEDED,#D6D6D6)}
+.ph-2{background:linear-gradient(160deg,#E4E4E4,#CBCBCB)}
+.ph-3{background:linear-gradient(160deg,#F1F1F1,#D9D9D9)}
+.ph-4{background:linear-gradient(160deg,#E9E9E9,#D0D0D0)}
+.badge{
+  position:absolute;top:12px;right:12px;z-index:2;
+  background:var(--black);color:var(--white);
+  font-size:11px;font-weight:700;letter-spacing:.08em;
+  padding:5px 11px;
+}
+.badge.sale{background:var(--accent)}
+.quick{
+  position:absolute;left:0;right:0;bottom:0;z-index:2;
+  background:var(--black);color:var(--white);border:none;
+  font-size:13px;font-weight:600;letter-spacing:.05em;
+  padding:13px;transform:translateY(102%);
+  transition:transform .28s var(--ease);
+}
+.pcard:hover .quick,.pcard:focus-within .quick{transform:none}
+.pinfo{padding:13px 2px 0}
+.pname{font-size:14.5px;font-weight:500;margin-bottom:3px}
+.pprice{font-size:14.5px;font-weight:700}
+.pprice s{color:var(--grey-3);font-weight:400;margin-right:8px}
+.pprice em{color:var(--accent);font-style:normal;font-weight:700}
+.sizes{display:flex;gap:6px;margin-top:9px}
+.size{
+  font-size:11px;font-weight:600;color:var(--grey-4);
+  border:1px solid var(--grey-2);
+  min-width:26px;height:24px;display:grid;place-items:center;padding:0 5px;
+  transition:border-color .15s,color .15s;
+}
+.size:hover{border-color:var(--black);color:var(--black)}
+.swatches{display:flex;gap:6px;margin-top:9px}
+.sw{width:14px;height:14px;border-radius:50%;border:1px solid var(--grey-2);transition:transform .15s}
+.sw:hover{transform:scale(1.25)}
+
+/* ============ split banners ============ */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:0 var(--pad)}
+.tile{
+  position:relative;aspect-ratio:16/10;overflow:hidden;
+  display:flex;align-items:flex-end;color:var(--white);
+}
+.tile .bg{position:absolute;inset:0;transition:transform .7s var(--ease)}
+.tile:hover .bg{transform:scale(1.05)}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.35),transparent 55%)}
+.tile-1 .bg{background:linear-gradient(135deg,#191919,#3A3A3A 60%,#222)}
+.tile-2 .bg{background:linear-gradient(135deg,#CFCFCF,#EFEFEF 55%,#C2C2C2)}
+.tile-2{color:var(--black)}
+.tile-2::after{background:linear-gradient(0deg,rgba(255,255,255,.4),transparent 55%)}
+.tile-in{position:relative;z-index:2;padding:26px 28px}
+.tile h3{font-weight:800;font-size:clamp(20px,2.6vw,28px);margin-bottom:6px}
+.tile-2 h3{color:var(--accent)}
+.tile p{font-size:14px;font-weight:300;margin-bottom:16px;opacity:.9}
+.tile .tlink{font-size:13px;font-weight:700;letter-spacing:.06em;border-bottom:1.5px solid currentColor;padding-bottom:2px}
+
+/* ============ categories ============ */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.cat{
+  position:relative;aspect-ratio:3/4;overflow:hidden;
+  display:flex;align-items:flex-end;justify-content:center;
+  color:var(--white);text-align:center;
+}
+.cat .bg{position:absolute;inset:0;transition:transform .7s var(--ease)}
+.cat:hover .bg{transform:scale(1.06)}
+.cat-1 .bg{background:linear-gradient(170deg,#3E3E3E,#161616)}
+.cat-2 .bg{background:linear-gradient(170deg,#DADADA,#A6A6A6)}
+.cat-3 .bg{background:linear-gradient(170deg,#282828,#4B4B4B)}
+.cat-4 .bg{background:linear-gradient(170deg,#C9C9C9,#888)}
+.cat span{
+  position:relative;margin-bottom:22px;
+  font-size:16px;font-weight:700;letter-spacing:.12em;
+  padding:9px 22px;border:1.5px solid rgba(255,255,255,.85);
+  background:rgba(0,0,0,.22);backdrop-filter:blur(3px);
+  transition:background .2s,letter-spacing .2s;
+}
+.cat:hover span{background:rgba(0,0,0,.42);letter-spacing:.18em}
+
+/* ============ marquee ============ */
+.marquee{
+  border-top:1px solid var(--grey-1);border-bottom:1px solid var(--grey-1);
+  overflow:hidden;padding:16px 0;background:var(--white);
+}
+.mtrack{display:flex;width:max-content;animation:slide 26s linear infinite}
+.mtrack span{
+  font-family:var(--latin);font-weight:700;font-size:13px;letter-spacing:.3em;
+  color:var(--black);padding:0 34px;white-space:nowrap;
+  display:flex;align-items:center;gap:34px;
+}
+.mtrack span::after{content:"◆";font-size:8px;color:var(--grey-3)}
+@keyframes slide{to{transform:translateX(50%)}}
+
+/* ============ newsletter ============ */
+.news{
+  position:relative;overflow:hidden;
+  background:var(--black);color:var(--white);
+  padding:clamp(52px,9vw,90px) var(--pad);
+  text-align:center;
+}
+.news::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(80% 120% at 50% -10%, rgba(255,255,255,.10), transparent 60%);
+}
+.news>*{position:relative;z-index:2}
+.news h2{font-weight:800;font-size:clamp(24px,4vw,40px);margin-bottom:10px}
+.news .disc{font-family:var(--latin);font-weight:900;font-size:clamp(40px,7vw,68px);letter-spacing:.04em;color:transparent;-webkit-text-stroke:1.5px var(--white);display:block;margin:6px 0 12px}
+.news p{font-weight:300;color:var(--grey-2);margin-bottom:30px;font-size:15.5px}
+.nform{display:flex;max-width:440px;margin:0 auto;border:1.5px solid var(--white)}
+.nform input{
+  flex:1;background:transparent;border:none;color:var(--white);
+  font-family:var(--body);font-size:15px;padding:15px 18px;min-width:0;
+}
+.nform input::placeholder{color:var(--grey-3)}
+.nform input:focus{outline:none}
+.nform button{
+  background:var(--white);color:var(--black);border:none;
+  font-size:14px;font-weight:700;letter-spacing:.05em;padding:0 26px;
+  transition:opacity .15s ease;
+}
+.nform button:hover{opacity:.85}
+
+/* ============ footer ============ */
+footer{background:var(--white);border-top:1px solid var(--grey-1);padding:clamp(40px,7vw,64px) var(--pad) 28px}
+.frow{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;margin-bottom:44px}
+.fbrand .logo{text-align:right;font-size:18px;margin-bottom:12px;padding:0}
+.fbrand p{font-size:13.5px;font-weight:300;color:var(--grey-4);max-width:32ch}
+.fcol h4{font-size:13px;font-weight:700;letter-spacing:.12em;margin-bottom:14px}
+.fcol a{display:block;font-size:13.5px;color:var(--grey-4);padding:4px 0;transition:color .15s,padding-right .15s}
+.fcol a:hover{color:var(--black);padding-right:5px}
+.fbot{
+  display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;
+  padding-top:22px;border-top:1px solid var(--grey-1);
+  font-size:12px;color:var(--grey-3);
+}
+.fbot .pay{display:flex;gap:8px}
+.fbot .pay i{
+  font-style:normal;font-size:10px;font-weight:700;letter-spacing:.04em;
+  border:1px solid var(--grey-2);padding:4px 9px;color:var(--grey-4);
+}
+
+/* ============ whatsapp float ============ */
+.wa-float{
+  position:fixed;bottom:22px;left:22px;z-index:45;
+  width:54px;height:54px;border-radius:50%;
+  background:var(--black);display:grid;place-items:center;
+  box-shadow:0 8px 24px rgba(0,0,0,.25);
+  transition:transform .18s var(--ease);
+}
+.wa-float::after{
+  content:"";position:absolute;inset:0;border-radius:50%;
+  border:1.5px solid var(--black);animation:ping 2.6s var(--ease) infinite;
+}
+@keyframes ping{0%{transform:scale(1);opacity:.5}70%,100%{transform:scale(1.5);opacity:0}}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:26px;height:26px;fill:var(--white);position:relative;z-index:2}
+
+/* ============ cart drawer (demo) ============ */
+.drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:60;display:none;opacity:0;transition:opacity .3s ease}
+.drawer-bg.on{display:block;opacity:1}
+.drawer{
+  position:fixed;top:0;bottom:0;left:0;width:min(400px,92vw);z-index:61;
+  background:var(--white);transform:translateX(-102%);
+  transition:transform .34s var(--ease);
+  display:flex;flex-direction:column;
+}
+.drawer.on{transform:none}
+.dhead{display:flex;justify-content:space-between;align-items:center;padding:20px 22px;border-bottom:1px solid var(--grey-1)}
+.dhead h3{font-size:17px;font-weight:700}
+.dhead button{background:none;border:none;font-size:22px;line-height:1}
+.dbody{flex:1;display:grid;place-items:center;color:var(--grey-3);font-size:14.5px;text-align:center;padding:20px}
+.dfoot{padding:18px 22px;border-top:1px solid var(--grey-1)}
+.dfoot .btn{width:100%;justify-content:center}
+
+/* ============ scroll reveal ============ */
+.reveal{opacity:0;transform:translateY(34px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.pgrid.stagger .pcard,.cats.stagger .cat,.split.stagger .tile{opacity:0;transform:translateY(34px);transition:opacity .6s var(--ease),transform .6s var(--ease)}
+.pgrid.stagger.in .pcard,.cats.stagger.in .cat,.split.stagger.in .tile{opacity:1;transform:none}
+.stagger.in .pcard:nth-child(2),.stagger.in .cat:nth-child(2),.stagger.in .tile:nth-child(2){transition-delay:.08s}
+.stagger.in .pcard:nth-child(3),.stagger.in .cat:nth-child(3){transition-delay:.16s}
+.stagger.in .pcard:nth-child(4),.stagger.in .cat:nth-child(4){transition-delay:.24s}
+
+/* ============ responsive ============ */
+@media (max-width:900px){
+  .pgrid{grid-template-columns:repeat(2,1fr)}
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .frow{grid-template-columns:1fr 1fr}
+}
+@media (max-width:760px){
+  .hnav{display:none}
+  .burger{display:grid}
+  .split{grid-template-columns:1fr}
+  .hrow{grid-template-columns:auto 1fr auto}
+  .stagger.in .pcard{transition-delay:0s!important}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal,.pgrid.stagger .pcard,.cats.stagger .cat,.split.stagger .tile{opacity:1;transform:none}
+  .hero .eyebrow,.hero h1,.hero p,.hero .btn{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<div class="announce"><span>משלוח <b>חינם</b> בהזמנה מעל 200 ₪ &nbsp;·&nbsp; החזרה קלה עד 14 יום</span></div>
+
+<header id="header">
+  <div class="hrow">
+    <nav class="hnav">
+      <a href="#new">חדש</a>
+      <a href="#best">נמכרים</a>
+      <a href="#cats">קטגוריות</a>
+      <a href="#" class="sale">SALE</a>
+    </nav>
+    <button class="burger" aria-label="תפריט"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    <div class="logo">HEZI LONDON<small>חזי לונדון</small></div>
+    <div class="hicons">
+      <button aria-label="חיפוש"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg></button>
+      <button aria-label="חשבון"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1.5-4 5-6 8-6s6.5 2 8 6"/></svg></button>
+      <button aria-label="עגלה" id="cartBtn"><svg viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg><span class="cart-count">0</span></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="hero-in">
+    <div class="eyebrow">SS26 · הקולקציה החדשה</div>
+    <h1>סטייל לונדוני.<br>בלי טיסה.</h1>
+    <p>הפריטים שכולם ישאלו אותך מאיפה. נבחרו אחד-אחד, נשלחים עד הבית.</p>
+    <a class="btn" href="#best">לצפייה בקולקציה <svg viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg></a>
+  </div>
+</section>
+
+<div class="marquee" aria-hidden="true">
+  <div class="mtrack">
+    <span>HEZI LONDON</span><span>NEW SEASON</span><span>FREE SHIPPING 200₪+</span><span>SS26</span>
+    <span>HEZI LONDON</span><span>NEW SEASON</span><span>FREE SHIPPING 200₪+</span><span>SS26</span>
+  </div>
+</div>
+
+<section class="sec" id="best">
+  <div class="sec-head reveal">
+    <h2 class="sec-title">הנמכרים ביותר <span class="en">BEST SELLERS</span></h2>
+    <a class="sec-link" href="#">לכל המוצרים ←</a>
+  </div>
+  <div class="pgrid stagger">
+    <article class="pcard">
+      <div class="pimg"><div class="ph ph-1" data-mono="HL"></div><span class="badge">חדש</span><button class="quick add">הוספה מהירה +</button></div>
+      <div class="pinfo">
+        <div class="pname">חולצת אוברסייז — לבן</div>
+        <div class="pprice">149 ₪</div>
+        <div class="sizes"><span class="size">S</span><span class="size">M</span><span class="size">L</span><span class="size">XL</span></div>
+      </div>
+    </article>
+    <article class="pcard">
+      <div class="pimg"><div class="ph ph-2" data-mono="HL"></div><span class="badge sale">-30%</span><button class="quick add">הוספה מהירה +</button></div>
+      <div class="pinfo">
+        <div class="pname">מכנסי קרגו — שחור</div>
+        <div class="pprice"><em>199 ₪</em> <s>285 ₪</s></div>
+        <div class="sizes"><span class="size">S</span><span class="size">M</span><span class="size">L</span></div>
+      </div>
+    </article>
+    <article class="pcard">
+      <div class="pimg"><div class="ph ph-3" data-mono="HL"></div><button class="quick add">הוספה מהירה +</button></div>
+      <div class="pinfo">
+        <div class="pname">סניקרס צ'אנקי — אופווייט</div>
+        <div class="pprice">329 ₪</div>
+        <div class="swatches"><span class="sw" style="background:#111"></span><span class="sw" style="background:#EEE"></span><span class="sw" style="background:#9A9A9A"></span></div>
+      </div>
+    </article>
+    <article class="pcard">
+      <div class="pimg"><div class="ph ph-4" data-mono="HL"></div><span class="badge">חדש</span><button class="quick add">הוספה מהירה +</button></div>
+      <div class="pinfo">
+        <div class="pname">ז'קט דנים — ווש בהיר</div>
+        <div class="pprice">269 ₪</div>
+        <div class="sizes"><span class="size">M</span><span class="size">L</span><span class="size">XL</span></div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section class="split stagger" id="new">
+  <a class="tile tile-1" href="#">
+    <div class="bg"></div>
+    <div class="tile-in">
+      <h3>NEW IN</h3>
+      <p>הגעות חדשות מהשבוע</p>
+      <span class="tlink">לצפייה ←</span>
+    </div>
+  </a>
+  <a class="tile tile-2" href="#">
+    <div class="bg"></div>
+    <div class="tile-in">
+      <h3>SALE עד 50%-</h3>
+      <p>סוף עונה — הפריטים הכי שווים במחירים הכי טובים</p>
+      <span class="tlink">לצפייה ←</span>
+    </div>
+  </a>
+</section>
+
+<section class="sec" id="cats">
+  <div class="sec-head reveal">
+    <h2 class="sec-title">קנייה לפי קטגוריה <span class="en">SHOP BY</span></h2>
+  </div>
+  <div class="cats stagger">
+    <a class="cat cat-1" href="#"><div class="bg"></div><span>חולצות</span></a>
+    <a class="cat cat-2" href="#"><div class="bg"></div><span>מכנסיים</span></a>
+    <a class="cat cat-3" href="#"><div class="bg"></div><span>נעליים</span></a>
+    <a class="cat cat-4" href="#"><div class="bg"></div><span>אקססוריז</span></a>
+  </div>
+</section>
+
+<section class="news">
+  <h2>מצטרפים למועדון של חזי</h2>
+  <span class="disc">-5%</span>
+  <p>הנחה על ההזמנה הראשונה, וגישה מוקדמת לדרופים חדשים. בלי ספאם, מבטיחים.</p>
+  <form class="nform" onsubmit="event.preventDefault();this.querySelector('button').textContent='נרשמת ✓'">
+    <input type="email" placeholder="המייל שלך" required>
+    <button type="submit">הרשמה</button>
+  </form>
+</section>
+
+<footer>
+  <div class="frow">
+    <div class="fbrand">
+      <div class="logo">HEZI LONDON</div>
+      <p>אופנה בסטנדרט לונדוני, שירות בגובה העיניים. נשלח מהיום למחר לכל הארץ.</p>
+    </div>
+    <div class="fcol">
+      <h4>חנות</h4>
+      <a href="#">כל המוצרים</a>
+      <a href="#">חדש</a>
+      <a href="#">SALE</a>
+      <a href="#">גיפט קארד</a>
+    </div>
+    <div class="fcol">
+      <h4>שירות</h4>
+      <a href="#">משלוחים והחזרות</a>
+      <a href="#">מדריך מידות</a>
+      <a href="#">שאלות נפוצות</a>
+      <a href="#">צור קשר</a>
+    </div>
+    <div class="fcol">
+      <h4>מידע</h4>
+      <a href="#">אודות</a>
+      <a href="#">תקנון</a>
+      <a href="#">מדיניות פרטיות</a>
+    </div>
+  </div>
+  <div class="fbot">
+    <span>© 2026 חזי לונדון · כל הזכויות שמורות</span>
+    <div class="pay"><i>VISA</i><i>MASTERCARD</i><i>BIT</i><i>APPLE PAY</i></div>
+  </div>
+</footer>
+
+<a class="wa-float" href="#" aria-label="דברו איתנו בוואטסאפ">
+  <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm5.5 14.1c-.2.7-1.3 1.3-1.9 1.4-.5.1-1.1.1-1.8-.1-.4-.1-1-.3-1.7-.6-3-1.3-4.9-4.3-5.1-4.5-.1-.2-1.2-1.6-1.2-3s.7-2.1 1-2.4c.2-.3.5-.3.7-.3h.5c.2 0 .4 0 .6.4.2.5.7 1.8.8 1.9.1.1.1.3 0 .5-.1.2-.1.3-.3.5l-.4.5c-.1.1-.3.3-.1.6.2.3.8 1.3 1.7 2.1 1.2 1.1 2.2 1.4 2.5 1.5.3.1.5.1.7-.1.2-.2.8-.9.9-1.2.2-.3.4-.2.6-.1.2.1 1.6.7 1.8.9.3.1.4.2.5.3 0 .2 0 .7-.2 1.2Z"/></svg>
+</a>
+
+<div class="drawer-bg" id="drawerBg"></div>
+<aside class="drawer" id="drawer" aria-label="עגלת קניות">
+  <div class="dhead"><h3>העגלה שלך</h3><button id="drawerClose" aria-label="סגירה">×</button></div>
+  <div class="dbody" id="dbody">העגלה ריקה כרגע.<br>זו הדגמה — בחנות האמיתית המוצרים יופיעו כאן.</div>
+  <div class="dfoot"><button class="btn dark">מעבר לתשלום</button></div>
+</aside>
+
+<script>
+(function(){
+  var count=0;
+  var cc=document.querySelector('.cart-count');
+  var drawer=document.getElementById('drawer');
+  var bg=document.getElementById('drawerBg');
+  var body=document.getElementById('dbody');
+  function open(){drawer.classList.add('on');bg.classList.add('on');}
+  function close(){drawer.classList.remove('on');bg.classList.remove('on');}
+  document.getElementById('cartBtn').addEventListener('click',open);
+  document.getElementById('drawerClose').addEventListener('click',close);
+  bg.addEventListener('click',close);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')close();});
+  document.querySelectorAll('.add').forEach(function(b){
+    b.addEventListener('click',function(){
+      count++;cc.textContent=count;cc.classList.add('show');
+      var name=b.closest('.pcard').querySelector('.pname').textContent;
+      body.innerHTML='<div style="color:var(--black);font-weight:500">נוסף לעגלה:<br>'+name+'<br><br><span style="color:var(--grey-3);font-weight:300">(הדגמה בלבד)</span></div>';
+      open();
+    });
+  });
+
+  /* header shadow on scroll */
+  var header=document.getElementById('header');
+  window.addEventListener('scroll',function(){
+    header.classList.toggle('scrolled',window.scrollY>8);
+  },{passive:true});
+
+  /* scroll reveal */
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(en.isIntersecting){en.target.classList.add('in');io.unobserve(en.target);}
+    });
+  },{threshold:.14});
+  document.querySelectorAll('.reveal,.stagger').forEach(function(el){io.observe(el);});
+})();
+</script>
+</body>
+</html>
