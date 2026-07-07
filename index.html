@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שאלון לחזי לונדון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F6F4F0; --paper-2:#FFFFFF;
+    --ink:#16130F; --ink-soft:#565049; --ink-faint:#8A837A;
+    --line:#DBD6CC; --line-strong:#16130F; --sel:#EDEAE3;
+    --help-bg:#EEEBE4;
+    --display:'Frank Ruhl Libre', Georgia, serif;
+    --body:'Heebo', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased}
+  ::selection{background:var(--ink);color:var(--paper)}
+  .wrap{max-width:680px;margin:0 auto;padding:0 22px 120px}
+
+  header.mast{padding:60px 0 34px;border-bottom:2px solid var(--line-strong);margin-bottom:10px}
+  .kicker{font-size:11px;font-weight:700;letter-spacing:.3em;text-transform:uppercase;color:var(--ink-soft);display:flex;align-items:center;gap:14px}
+  .kicker::after{content:"";flex:1;height:1px;background:var(--line)}
+  h1{font-family:var(--display);font-weight:900;font-size:clamp(42px,9vw,74px);line-height:.95;letter-spacing:-.02em;margin:20px 0 0}
+  h1 .lo{display:block;font-weight:400;font-style:italic;font-size:.4em;color:var(--ink-soft);margin-top:12px}
+  .lede{margin:24px 0 0;font-size:18px;color:var(--ink-soft);font-weight:300}
+  .lede b{color:var(--ink);font-weight:500}
+  .reassure{margin:18px 0 0;padding:14px 16px;background:var(--help-bg);border-radius:12px;font-size:14.5px;color:var(--ink-soft);line-height:1.55}
+  .reassure b{color:var(--ink);font-weight:500}
+
+  .section{padding:42px 0;border-bottom:1px solid var(--line)}
+  .shead{display:flex;align-items:baseline;gap:14px;margin:0 0 30px}
+  .snum{font-family:var(--display);font-size:26px;color:var(--ink-faint);line-height:1}
+  .sec-title{font-family:var(--display);font-weight:700;font-size:26px;line-height:1.1;margin:0}
+
+  .field{margin:0 0 34px}
+  .field:last-child{margin-bottom:0}
+  .q{display:block;font-size:19px;font-weight:500;color:var(--ink);margin:0 0 8px;line-height:1.4}
+  .help{display:block;font-size:14.5px;font-weight:300;color:var(--ink-soft);line-height:1.55;margin:0 0 14px;padding-right:13px;border-right:2px solid var(--line)}
+  .help b{color:var(--ink);font-weight:500}
+
+  input[type=text],input[type=number],textarea{
+    width:100%;font-family:var(--body);font-size:17px;color:var(--ink);background:var(--paper-2);
+    border:1.5px solid var(--line);border-radius:12px;padding:14px 15px;transition:border-color .18s ease}
+  textarea{resize:vertical;min-height:88px;line-height:1.55}
+  input::placeholder,textarea::placeholder{color:var(--ink-faint);font-weight:300}
+  input:focus,textarea:focus{outline:none;border-color:var(--line-strong)}
+
+  .opts{display:flex;flex-direction:column;gap:10px}
+  .opt{position:relative;display:flex;align-items:center;gap:13px;padding:15px 17px;border:1.5px solid var(--line);border-radius:12px;background:var(--paper-2);font-size:16px;color:var(--ink);cursor:pointer;transition:border-color .16s ease,background .16s ease;user-select:none}
+  .opt input{position:absolute;opacity:0;inset:0;cursor:pointer;margin:0}
+  .opt .dot{width:20px;height:20px;border:2px solid var(--ink-faint);border-radius:50%;flex:none;transition:.16s ease;position:relative}
+  .opt.chk .dot{border-radius:6px}
+  .opt:hover{border-color:var(--ink-soft)}
+  .opt:has(input:focus-visible){outline:2px solid var(--ink);outline-offset:2px}
+  .opt:has(input:checked){background:var(--ink);border-color:var(--ink);color:var(--paper)}
+  .opt:has(input:checked) .dot{border-color:var(--paper)}
+  .opt:has(input:checked) .dot::after{content:"";position:absolute;inset:4px;background:var(--paper);border-radius:inherit}
+  .inline-other{margin-top:11px}
+
+  .finish{padding:48px 0 0;text-align:center}
+  .finish p{color:var(--ink-soft);font-size:16px;font-weight:300;margin:0 0 22px}
+  .btn{font-family:var(--body);font-size:17px;font-weight:500;padding:17px 44px;border-radius:999px;border:1.5px solid var(--ink);cursor:pointer;transition:transform .12s ease,background .16s ease,color .16s ease}
+  .btn-primary{background:var(--ink);color:var(--paper)}
+  .btn-primary:hover{transform:translateY(-1px)}
+  .btn-ghost{background:transparent;color:var(--ink)}
+  .btn-ghost:hover{background:var(--sel)}
+
+  footer.foot{margin-top:50px;padding-top:24px;border-top:1px solid var(--line);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:12px;color:var(--ink-faint);letter-spacing:.02em}
+  footer.foot b{font-weight:700;letter-spacing:.16em;color:var(--ink-soft)}
+
+  .overlay{position:fixed;inset:0;background:rgba(22,19,15,.55);display:none;align-items:flex-end;justify-content:center;z-index:50;backdrop-filter:blur(3px)}
+  .overlay.on{display:flex}
+  .sheet{background:var(--paper);width:100%;max-width:600px;border-radius:22px 22px 0 0;max-height:90vh;overflow:auto;padding:32px 26px 28px;box-shadow:0 -20px 60px -20px rgba(0,0,0,.5);animation:up .28s cubic-bezier(.2,.8,.2,1)}
+  @keyframes up{from{transform:translateY(30px);opacity:0}to{transform:none;opacity:1}}
+  .sheet h2{font-family:var(--display);font-weight:700;font-size:27px;margin:0 0 4px}
+  .sheet .sub{color:var(--ink-soft);font-size:15px;font-weight:300;margin:0 0 18px}
+  .summary{white-space:pre-wrap;background:var(--paper-2);border:1px solid var(--line);border-radius:14px;padding:18px;font-size:14px;line-height:1.7;color:var(--ink);max-height:40vh;overflow:auto}
+  .sheet-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+  .sheet-actions .btn{flex:1;min-width:150px;padding:15px 20px;font-size:15px}
+  .wa{background:#16130F;color:var(--paper);border-color:#16130F}
+  .toast{text-align:center;font-size:14px;color:var(--ink-soft);margin-top:12px;min-height:20px}
+  .close{background:none;border:none;color:var(--ink-faint);font-size:15px;cursor:pointer;margin-top:14px;width:100%;padding:8px}
+  .close:hover{color:var(--ink)}
+
+  @media (max-width:560px){.wrap{padding:0 16px 90px}header.mast{padding:40px 0 26px}.q{font-size:18px}}
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="kicker">שאלון קצר</div>
+    <h1>חזי לונדון<span class="lo">בוא נבנה לך אתר</span></h1>
+    <p class="lede">כמה שאלות פשוטות, כדי שנבין <b>בדיוק</b> איך אתה רוצה את החנות שלך.</p>
+    <div class="reassure">אין כאן תשובות נכונות או לא נכונות 🙂 <b>מה שלא בטוח — פשוט כתוב "לא יודע" או דלג</b>, ונשלים את זה ביחד בשיחה. זה ייקח לך כמה דקות.</div>
+  </header>
+
+  <!-- 1 -->
+  <section class="section">
+    <div class="shead"><span class="snum">1</span><h2 class="sec-title">קצת על החנות</h2></div>
+    <div class="field">
+      <label class="q" for="brand">איך קוראים לחנות?</label>
+      <input type="text" id="brand" value="חזי לונדון">
+    </div>
+    <div class="field">
+      <label class="q" for="sells">מה אתה מוכר?</label>
+      <span class="help">פשוט תכתוב במילים שלך — בגדים? נעליים? תיקים? כל מה שתמכור בחנות.</span>
+      <input type="text" id="sells" placeholder="לדוגמה: בגדי נשים ונעליים">
+    </div>
+    <div class="field">
+      <label class="q" for="audience">מי הלקוחות שלך?</label>
+      <span class="help">למי בעיקר אתה מוכר? לא חייב לדייק.</span>
+      <input type="text" id="audience" placeholder="לדוגמה: נשים שאוהבות אופנה, גיל 20 עד 45">
+    </div>
+  </section>
+
+  <!-- 2 -->
+  <section class="section">
+    <div class="shead"><span class="snum">2</span><h2 class="sec-title">המוצרים שלך</h2></div>
+    <div class="field">
+      <label class="q" for="prodcount">בערך כמה מוצרים תעלה בהתחלה?</label>
+      <span class="help">לא צריך מספר מדויק. 10? 50? 100? מה שיש לך בראש.</span>
+      <input type="number" id="prodcount" min="0" placeholder="לדוגמה: 40">
+    </div>
+    <div class="field">
+      <span class="q">יש לך תמונות של המוצרים?</span>
+      <span class="help">תמונות זה הדבר הכי חשוב באתר. <b>גם תמונות טובות מהטלפון זו התחלה מצוינת</b> — לא חייב צלם מקצועי כדי להתחיל.</span>
+      <div class="opts" data-single>
+        <label class="opt"><input type="radio" name="photos"><span class="dot"></span><span>יש לי תמונות מקצועיות</span></label>
+        <label class="opt"><input type="radio" name="photos"><span class="dot"></span><span>יש לי תמונות מהטלפון</span></label>
+        <label class="opt"><input type="radio" name="photos"><span class="dot"></span><span>אין לי עדיין</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="q" for="pricerange">באיזה מחירים המוצרים?</label>
+      <span class="help">בערך — מהזול ביותר ועד היקר ביותר.</span>
+      <input type="text" id="pricerange" placeholder="לדוגמה: בין 100 ל-500 שקל">
+    </div>
+  </section>
+
+  <!-- 3 -->
+  <section class="section">
+    <div class="shead"><span class="snum">3</span><h2 class="sec-title">איך האתר ייראה</h2></div>
+    <div class="field">
+      <span class="q">האתר שאהבת הוא בשחור-לבן ונקי. גם שלך ככה?</span>
+      <span class="help">התכוונתי לאתר <b>BLACK X WHITE</b> ששלחת — סגנון פשוט, שחור ולבן, בלי הרבה צבעים.</span>
+      <div class="opts" data-single>
+        <label class="opt"><input type="radio" name="palette"><span class="dot"></span><span>כן, בדיוק ככה</span></label>
+        <label class="opt"><input type="radio" name="palette"><span class="dot"></span><span>אני רוצה צבעים</span></label>
+        <label class="opt"><input type="radio" name="palette"><span class="dot"></span><span>תחליטו אתם, אני סומך עליכם</span></label>
+      </div>
+      <div class="inline-other"><input type="text" data-other placeholder="רוצה צבעים? כתוב אילו"></div>
+    </div>
+    <div class="field">
+      <label class="q" for="dislike">יש משהו שאתה ממש לא אוהב שיהיה באתר?</label>
+      <span class="help">צבע שאתה שונא? סגנון שלא מדבר אליך? עדיף שנדע עכשיו כדי לא לבזבז זמן. אם אין — פשוט דלג.</span>
+      <textarea id="dislike" placeholder="ספר לנו ממה להתרחק"></textarea>
+    </div>
+  </section>
+
+  <!-- 4 -->
+  <section class="section">
+    <div class="shead"><span class="snum">4</span><h2 class="sec-title">הזמנות ותשלום</h2></div>
+    <div class="field">
+      <label class="q" for="ship">איך הלקוחות יקבלו את מה שהם קונים?</label>
+      <span class="help">משלוח עד הבית? איסוף עצמי? יש לך כבר חברת שליחויות שאתה עובד איתה?</span>
+      <input type="text" id="ship" placeholder="לדוגמה: משלוח עד הבית">
+    </div>
+    <div class="field">
+      <span class="q">אתה רוצה שלקוחות ישלמו בכרטיס אשראי באתר?</span>
+      <span class="help">כדי לקבל תשלומים באתר צריך חיבור לחברה שגובה כסף בשמך. <b>אם אין לך כזה — לא נורא בכלל, נסדר לך את זה.</b> רק תגיד לנו איפה אתה עומד.</span>
+      <div class="opts" data-single>
+        <label class="opt"><input type="radio" name="pay"><span class="dot"></span><span>כן, וכבר יש לי דרך לגבות אשראי</span></label>
+        <label class="opt"><input type="radio" name="pay"><span class="dot"></span><span>כן, אבל אני צריך שתעזרו לי לסדר</span></label>
+        <label class="opt"><input type="radio" name="pay"><span class="dot"></span><span>עדיין לא יודע</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="q" for="returns">אם מישהו רוצה להחזיר מוצר — עד כמה ימים?</label>
+      <span class="help">כמה זמן אחרי הקנייה לקוח יכול להחזיר. בישראל בדרך כלל זה 14 יום.</span>
+      <input type="text" id="returns" placeholder="לדוגמה: 14 יום">
+    </div>
+    <div class="field">
+      <span class="q">רוצה כפתור וואטסאפ באתר?</span>
+      <span class="help">כפתור קטן שלקוח לוחץ עליו ומדבר איתך ישר בוואטסאפ. עוזר מאוד למכירות.</span>
+      <div class="opts" data-single>
+        <label class="opt"><input type="radio" name="wa"><span class="dot"></span><span>כן, בהחלט</span></label>
+        <label class="opt"><input type="radio" name="wa"><span class="dot"></span><span>לא צריך</span></label>
+        <label class="opt"><input type="radio" name="wa"><span class="dot"></span><span>תחליטו אתם</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="section">
+    <div class="shead"><span class="snum">5</span><h2 class="sec-title">כתובת האתר ומה שיש לך מוכן</h2></div>
+    <div class="field">
+      <span class="q">יש לך כבר כתובת לאתר?</span>
+      <span class="help">זו הכתובת שאנשים מקלידים כדי להיכנס לאתר שלך, למשל <b>hezi-london.co.il</b>. יש לך כבר כזו, או שנקנה לך אחת?</span>
+      <div class="opts" data-single>
+        <label class="opt"><input type="radio" name="domain"><span class="dot"></span><span>יש לי כבר</span></label>
+        <label class="opt"><input type="radio" name="domain"><span class="dot"></span><span>צריך לקנות</span></label>
+        <label class="opt"><input type="radio" name="domain"><span class="dot"></span><span>לא בטוח מה זה</span></label>
+      </div>
+      <div class="inline-other"><input type="text" data-other placeholder="אם יש לך — כתוב את הכתובת"></div>
+    </div>
+    <div class="field">
+      <span class="q">מה כבר מוכן אצלך?</span>
+      <span class="help">סמן כל מה שיש לך. מה שאין — נעזור לך להשלים, בלי לחץ.</span>
+      <div class="opts">
+        <label class="opt chk"><input type="checkbox" name="ready"><span class="dot"></span><span>לוגו</span></label>
+        <label class="opt chk"><input type="checkbox" name="ready"><span class="dot"></span><span>תמונות של המוצרים</span></label>
+        <label class="opt chk"><input type="checkbox" name="ready"><span class="dot"></span><span>רשימת מוצרים עם מחירים</span></label>
+        <label class="opt chk"><input type="checkbox" name="ready"><span class="dot"></span><span>שמות ותיאורים למוצרים</span></label>
+      </div>
+    </div>
+    <div class="field">
+      <label class="q" for="launch">מתי היית רוצה שהאתר יהיה מוכן?</label>
+      <span class="help">בערך. אין לחץ — רק שנדע לתכנן.</span>
+      <input type="text" id="launch" placeholder="לדוגמה: תוך חודש">
+    </div>
+    <div class="field">
+      <label class="q" for="notes">עוד משהו שחשוב לך שנדע?</label>
+      <span class="help">כל דבר שעל הלב. אם אין — דלג.</span>
+      <textarea id="notes" placeholder="כתוב כאן"></textarea>
+    </div>
+  </section>
+
+  <div class="finish">
+    <p>סיימת! עכשיו נשלח את הכל בלחיצה אחת 👇</p>
+    <button class="btn btn-primary" id="generate">סיימתי — שלח את התשובות</button>
+  </div>
+
+  <footer class="foot">
+    <span>שאלון · חזי לונדון</span>
+    <span><b>HIRSCHMANN GROUP</b></span>
+  </footer>
+</div>
+
+<div class="overlay" id="overlay">
+  <div class="sheet" role="dialog" aria-modal="true" aria-label="התשובות שלך">
+    <h2>הכל מוכן 🎉</h2>
+    <p class="sub">עבור על זה רגע, ואז שלח בוואטסאפ.</p>
+    <div class="summary" id="summary"></div>
+    <div class="sheet-actions">
+      <button class="btn wa" id="waBtn">שליחה בוואטסאפ</button>
+      <button class="btn btn-ghost" id="copyBtn">העתקה</button>
+    </div>
+    <div class="toast" id="toast"></div>
+    <button class="close" id="closeBtn">חזרה</button>
+  </div>
+</div>
+
+<script>
+(function(){
+  function fieldAnswer(field){
+    var radios=field.querySelectorAll('input[type=radio]');
+    var checks=field.querySelectorAll('input[type=checkbox]');
+    var texts=field.querySelectorAll('input[type=text],input[type=number],textarea');
+    var parts=[];
+    if(radios.length){radios.forEach(function(r){if(r.checked){var s=r.parentElement.querySelector('span:last-child');if(s)parts.push(s.textContent.trim());}});}
+    if(checks.length){var p=[];checks.forEach(function(c){if(c.checked){var s=c.parentElement.querySelector('span:last-child');if(s)p.push(s.textContent.trim());}});if(p.length)parts.push(p.join(', '));}
+    texts.forEach(function(t){var v=(t.value||'').trim();if(v)parts.push(v);});
+    return parts.join(' · ');
+  }
+  function buildSummary(){
+    var out=['📋 האפיון של חזי לונדון','────────────────────'];
+    document.querySelectorAll('.section').forEach(function(sec){
+      var title=sec.querySelector('.sec-title').textContent.trim();
+      var lines=[];
+      sec.querySelectorAll('.field').forEach(function(field){
+        var qEl=field.querySelector('.q');if(!qEl)return;
+        var q=qEl.childNodes[0].textContent.trim().replace(/\s+/g,' ');
+        var a=fieldAnswer(field);
+        if(a)lines.push('• '+q+' — '+a);
+      });
+      if(lines.length){out.push('');out.push('▸ '+title);out=out.concat(lines);}
+    });
+    out.push('');out.push('────────────────────');out.push('נשלח מהשאלון · Hirschmann Group');
+    return out.join('\n');
+  }
+  var overlay=document.getElementById('overlay'),summaryEl=document.getElementById('summary'),toast=document.getElementById('toast'),currentText='';
+  document.getElementById('generate').addEventListener('click',function(){currentText=buildSummary();summaryEl.textContent=currentText;overlay.classList.add('on');document.body.style.overflow='hidden';toast.textContent='';});
+  function closeSheet(){overlay.classList.remove('on');document.body.style.overflow='';}
+  document.getElementById('closeBtn').addEventListener('click',closeSheet);
+  overlay.addEventListener('click',function(e){if(e.target===overlay)closeSheet();});
+  document.getElementById('waBtn').addEventListener('click',function(){window.open('https://wa.me/?text='+encodeURIComponent(currentText),'_blank');});
+  document.getElementById('copyBtn').addEventListener('click',function(){
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(currentText).then(function(){toast.textContent='הועתק ✓';}).catch(function(){toast.textContent='סמן והעתק ידנית';});}
+    else{toast.textContent='סמן והעתק ידנית';}
+  });
+})();
+</script>
+</body>
+</html>
